@@ -44,7 +44,7 @@ Once you have a list, create a one-day tour. Response should be  in the followin
     "country": "${country}",
     "title": "title of the tour",
     "description": "short description of the city and tour",
-    "stops": ["short paragraph on the stop 1", "short paragraph on the stop 2","short paragraph on the stop 3"]
+    "stops": ["stop name", "stop name","stop name"]
   }
 }
 "stops" property should include only three stops.
