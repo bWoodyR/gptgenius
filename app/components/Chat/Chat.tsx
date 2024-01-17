@@ -28,7 +28,7 @@ const Chat = () => {
       }
 
       setMessages((prev) => [...prev, response.message]);
-      const newTokens = subtractTokens(userId as string, response.tokens as number);
+      const newTokens = await subtractTokens(userId as string, response.tokens as number);
       toast.success(`${newTokens} tokens remainnig`);
     },
   });
