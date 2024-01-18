@@ -4,6 +4,7 @@ import { ChatMessageType } from "@/types/ChatMessageType";
 import OpenAI from "openai";
 import prisma from "@/utils/db";
 import { revalidatePath } from "next/cache";
+import { currentUser } from "@clerk/nextjs";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -21,10 +22,10 @@ export const generateChatResponse = async (chatMessages: any) => {
       ],
       model: "gpt-3.5-turbo",
       temperature: 0,
-      max_tokens: 100
+      max_tokens: 100,
     });
     const usedTokens = response?.usage?.total_tokens;
-    const aiAnswer = response.choices[0].message as ChatMessageType
+    const aiAnswer = response.choices[0].message as ChatMessageType;
     console.log(response.choices[0].message);
     console.log(response);
     return { message: aiAnswer, tokens: usedTokens };
@@ -61,12 +62,12 @@ If you can't find info on exact ${city}, or ${city} does not exist, or it's popu
     });
     console.log(response.choices[0].message);
     const tourData = JSON.parse(response.choices[0].message.content as any);
-    console.log(tourData)
+    console.log(tourData);
     if (!tourData.tour) return null;
     const usedTokens = response?.usage?.total_tokens;
     console.log(response.choices[0].message);
     console.log(response);
-    return { tour: tourData.tour , tokens: usedTokens };
+    return { tour: tourData.tour, tokens: usedTokens };
   } catch (error) {
     console.log(error);
     return null;
@@ -132,14 +133,14 @@ export const getSingleTour = async (id: string) => {
   });
 };
 
-export const generateTourImage = async ({ city, country }: { city: string; country: string }) => {
+export const generateImage = async (text: string) => {
   try {
     const tourImage = await openai.images.generate({
-      model: "dall-e-2",
-      // quality: "standard",
-      prompt: `Panoramic view of the ${city}, ${country}`,
+      model: "dall-e-3",
+      quality: "standard",
+      prompt: text,
       n: 1,
-      size: "512x512",
+      size: "1024x1024",
     });
     console.log(tourImage);
     return tourImage?.data[0]?.url;
@@ -158,16 +159,23 @@ export const fetchUserTokensById = async (clerkId: string) => {
 };
 
 export const generateUserTokensForId = async (clerkId: string) => {
+  const user = await currentUser();
+  const email = user?.emailAddresses[0].emailAddress as string;
   const result = await prisma.token.create({
     data: {
       clerkId,
+      email,
+      firstName: user?.firstName || "",
+      lastName: user?.lastName || "",
     },
   });
+  console.log(result)
   return result?.tokens;
 };
 
 export const fetchOrGenerateTokens = async (clerkId: string) => {
   const result = await fetchUserTokensById(clerkId);
+  console.log(result)
   if (result) return result;
 
   return await generateUserTokensForId(clerkId);
@@ -188,4 +196,10 @@ export const subtractTokens = async (clerkId: string, amountOfTokens: number) =>
   revalidatePath("/tours/new-tour");
 
   return result.tokens;
+};
+
+export const test = async () => {
+  const user = await currentUser();
+  console.log(user);
+  console.log(user?.lastName, user?.firstName, user?.emailAddresses[0].emailAddress);
 };

@@ -1,5 +1,5 @@
 import TourInfo, { TTour } from "@/app/components/Tours/TourInfo";
-import { generateTourImage, getSingleTour } from "@/utils/action";
+import { getSingleTour } from "@/utils/action";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -24,7 +24,7 @@ const SinglePagetour = async ({ params }: Props) => {
   const tourImage = data?.results[0]?.urls?.raw;
   return (
     <div>
-      <Link href={"/tours"} className="btn btn-secondary mb-12">
+      <Link href={"/tours"} className="btn btn-accent mb-12">
         Back to Tours
       </Link>
       {tourImage ? (

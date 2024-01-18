@@ -6,6 +6,10 @@ const links = [
     label: "chat",
   },
   {
+    href: "/images",
+    label: "images",
+  },
+  {
     href: "/tours",
     label: "tours",
   },
