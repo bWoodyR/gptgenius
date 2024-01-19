@@ -47,6 +47,7 @@ const Chat = () => {
   return (
     <div className="min-h-[calc(100vh-6rem)] grid grid-rows-[1fr,auto]">
       <div>
+        <h1 className="text-4xl">Chat GPT 3.5-turbo</h1>
         {messages.map((message, index) => {
           const avatar = message.role === "user" ? "🧑‍💼" : "🤖";
           const background = message.role === "user" ? "bg-base-200" : "bg-base-100";

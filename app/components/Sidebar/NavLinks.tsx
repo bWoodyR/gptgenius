@@ -18,6 +18,10 @@ const links = [
     label: "new tour",
   },
   {
+    href: "/pricing",
+    label: "pricing",
+  },
+  {
     href: "/profile",
     label: "profile",
   },

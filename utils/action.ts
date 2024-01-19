@@ -5,6 +5,7 @@ import OpenAI from "openai";
 import prisma from "@/utils/db";
 import { revalidatePath } from "next/cache";
 import { currentUser } from "@clerk/nextjs";
+import { TGenerateImage } from "@/types/GenerateImageType";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -133,23 +134,23 @@ export const getSingleTour = async (id: string) => {
   });
 };
 
-export const generateImage = async (text: string, clerkId: string) => {
+export const generateImage = async ({ text, clerkId, quality, size }: TGenerateImage) => {
   try {
     const tourImage = await openai.images.generate({
       model: "dall-e-3",
-      quality: "standard",
+      quality: quality || "standard",
       prompt: text,
       n: 1,
-      size: "1024x1024",
+      size: size || "1024x1024",
     });
 
-await prisma.imagePrompts.create({
-  data: {
-    authorId: clerkId,
-    prompt: text,
-    imageURL: tourImage?.data[0]?.url || "",
-  },
-});
+    await prisma.imagePrompts.create({
+      data: {
+        authorId: clerkId,
+        prompt: text,
+        imageURL: tourImage?.data[0]?.url || "",
+      },
+    });
 
     console.log(tourImage);
     return tourImage?.data[0]?.url;
@@ -178,13 +179,12 @@ export const generateUserTokensForId = async (clerkId: string) => {
       lastName: user?.lastName || "",
     },
   });
-  console.log(result)
+  console.log(result);
   return result?.tokens;
 };
 
 export const fetchOrGenerateTokens = async (clerkId: string) => {
   const result = await fetchUserTokensById(clerkId);
-  console.log(result)
   if (result) return result;
 
   return await generateUserTokensForId(clerkId);
@@ -205,10 +205,4 @@ export const subtractTokens = async (clerkId: string, amountOfTokens: number) =>
   revalidatePath("/tours/new-tour");
 
   return result.tokens;
-};
-
-export const test = async () => {
-  const user = await currentUser();
-  console.log(user);
-  console.log(user?.lastName, user?.firstName, user?.emailAddresses[0].emailAddress);
 };

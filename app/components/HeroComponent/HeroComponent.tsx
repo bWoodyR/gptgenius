@@ -10,6 +10,11 @@ const HeroComponent = () => {
           <Link href="/chat" className="btn btn-accent">
             Get Started
           </Link>
+          <ul className="steps mt-12 w-full">
+            <li className="step step-accent">Login</li>
+            <li className="step step-accent">Get Tokens</li>
+            <li className="step step-accent">Generate Images</li>
+          </ul>
         </div>
       </div>
     </div>

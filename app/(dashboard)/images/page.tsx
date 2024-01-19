@@ -1,4 +1,4 @@
-import ImageGenerator from "@/app/components/ImigaGenerator";
+import ImageGenerator from "@/app/components/ImageGenerator/ImigaGenerator";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
 const page = () => {
