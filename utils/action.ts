@@ -206,3 +206,17 @@ export const subtractTokens = async (clerkId: string, amountOfTokens: number) =>
 
   return result.tokens;
 };
+
+export const addTokensForId = async (clerkId: string, amountOfTokens: number) => {
+  const result = await prisma.token.update({
+    where: {
+      clerkId,
+    },
+    data: {
+      tokens: {
+        increment: amountOfTokens,
+      },
+    },
+  });
+  return result.tokens
+};
