@@ -22,7 +22,7 @@ model Tour {
   stops Json
   @@unique([city, country])
 }
-
+  
 model Token {
   clerkId String @id
   tokens Int @default(0)
@@ -30,4 +30,11 @@ model Token {
   email String
   firstName String
   lastName String
+}
+
+model ImagePrompts {
+  id Int @id @default(autoincrement())
+  authorId String
+  prompt String
+  imageURL String
 }

@@ -19,7 +19,7 @@ const ImageGenerator = () => {
         return;
       }
 
-      const imageURL = await generateImage(text);
+      const imageURL = await generateImage(text, userId as string);
 
       if (!imageURL) {
         toast.error("Something went wrong");

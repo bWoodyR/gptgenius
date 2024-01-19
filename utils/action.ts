@@ -133,7 +133,7 @@ export const getSingleTour = async (id: string) => {
   });
 };
 
-export const generateImage = async (text: string) => {
+export const generateImage = async (text: string, clerkId: string) => {
   try {
     const tourImage = await openai.images.generate({
       model: "dall-e-3",
@@ -142,6 +142,15 @@ export const generateImage = async (text: string) => {
       n: 1,
       size: "1024x1024",
     });
+
+await prisma.imagePrompts.create({
+  data: {
+    authorId: clerkId,
+    prompt: text,
+    imageURL: tourImage?.data[0]?.url || "",
+  },
+});
+
     console.log(tourImage);
     return tourImage?.data[0]?.url;
   } catch (error) {
