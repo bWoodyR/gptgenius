@@ -1,6 +1,6 @@
 "use client";
 
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, ClerkProvider } from "@clerk/nextjs";
 import { skSK } from "@clerk/localizations";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -17,11 +17,19 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <ClerkProvider localization={skSK}>
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
-          <Toaster position="top-center" />
-          {children}
-        </QueryClientProvider>
+        <ClerkLoading>
+          <div className="flex flex-col gap-4 min-h-screen items-center justify-center">
+            Loading ...
+            <span className="loading loading-lg"></span>
+          </div>
+        </ClerkLoading>
+        <ClerkLoaded>
+          <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools initialIsOpen={false} />
+            <Toaster position="top-center" />
+            {children}
+          </QueryClientProvider>
+        </ClerkLoaded>
       </ClerkProvider>
     </>
   );

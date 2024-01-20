@@ -37,4 +37,6 @@ model ImagePrompts {
   authorId String
   prompt String
   imageURL String
+  quality String 
+  size String 
 }

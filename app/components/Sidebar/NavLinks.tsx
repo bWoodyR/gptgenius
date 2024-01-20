@@ -22,6 +22,14 @@ const links = [
     label: "pricing",
   },
   {
+    href: "/faq",
+    label: "FAQ",
+  },
+  {
+    href: "/terms",
+    label: "terms of use",
+  },
+  {
     href: "/profile",
     label: "profile",
   },

@@ -4,8 +4,9 @@ import { ChatMessageType } from "@/types/ChatMessageType";
 import OpenAI from "openai";
 import prisma from "@/utils/db";
 import { revalidatePath } from "next/cache";
-import { currentUser } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs";
 import { TGenerateImage } from "@/types/GenerateImageType";
+import { redirect } from "next/navigation";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -149,6 +150,8 @@ export const generateImage = async ({ text, clerkId, quality, size }: TGenerateI
         authorId: clerkId,
         prompt: text,
         imageURL: tourImage?.data[0]?.url || "",
+        quality,
+        size,
       },
     });
 
@@ -185,7 +188,7 @@ export const generateUserTokensForId = async (clerkId: string) => {
 
 export const fetchOrGenerateTokens = async (clerkId: string) => {
   const result = await fetchUserTokensById(clerkId);
-  if (result) return result;
+  if (result || result === 0) return result;
 
   return await generateUserTokensForId(clerkId);
 };
@@ -218,5 +221,5 @@ export const addTokensForId = async (clerkId: string, amountOfTokens: number) =>
       },
     },
   });
-  return result.tokens
+  return result.tokens;
 };

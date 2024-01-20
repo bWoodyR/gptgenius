@@ -6,11 +6,11 @@ const MemberProfile = async () => {
   const { userId } = auth();
 
   await fetchOrGenerateTokens(userId as string);
-  const currentTokens = await fetchUserTokensById(userId as string)
+  const currentTokens = await fetchUserTokensById(userId as string);
 
   return (
     <div className="px-4 flex flex-col items-center gap-2">
-      <p>Tokens: {currentTokens}</p>
+      <p>Tokens: {new Intl.NumberFormat("sk-SK").format(currentTokens as number)}</p>
       <hr className="w-full" />
       <div className="px-4 flex items-center gap-2">
         <UserButton afterSignOutUrl="/"></UserButton>

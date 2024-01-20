@@ -8,10 +8,9 @@ const PricingPage = () => {
   return (
     <section className="flex flex-col gap-4 w-1/2">
       <div className="flex flex-col gap-2">
-        <h1 className="font-bold text-4xl">PAY ONLY FOR WHAT YOU WANT USE!</h1>
-        <hr />
+        <h1 className="font-bold text-4xl">Pricing</h1>
       </div>
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4 bg-base-300 rounded-xl px-4 py-6">
         <p>
           Amount of TOKENS: <span className="text-lg font-bold">{new Intl.NumberFormat("sk-SK").format(amountOfTokens)}</span>
         </p>
