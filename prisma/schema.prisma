@@ -6,12 +6,12 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model Tour {
-  id String @id @default(uuid())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   city String
@@ -24,7 +24,8 @@ model Tour {
 }
   
 model Token {
-  clerkId String @id
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId String @unique
   tokens Int @default(0)
   createdAt DateTime @default(now())
   email String
@@ -33,7 +34,7 @@ model Token {
 }
 
 model ImagePrompts {
-  id Int @id @default(autoincrement())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   authorId String
   prompt String
   imageURL String

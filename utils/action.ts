@@ -163,9 +163,9 @@ export const generateImage = async ({ text, clerkId, quality, size }: TGenerateI
 
 export const fetchUserTokensById = async (clerkId: string) => {
   const result = await prisma.token.findUnique({
-    where: {
-      clerkId,
-    },
+   where: {
+    clerkId
+   },
   });
   return result?.tokens;
 };
