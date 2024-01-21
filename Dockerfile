@@ -12,9 +12,11 @@ RUN npm ci
 
 # Copy the app source code to the container  
 COPY . .  
+ENV NODE_ENV production
 
 # Build the Next.js app  
 RUN npm run build  
+
 
 # Expose the port the app will run on  
 EXPOSE 4000  

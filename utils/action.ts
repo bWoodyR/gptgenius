@@ -4,9 +4,8 @@ import { ChatMessageType } from "@/types/ChatMessageType";
 import OpenAI from "openai";
 import prisma from "@/utils/db";
 import { revalidatePath } from "next/cache";
-import { auth, currentUser } from "@clerk/nextjs";
+import {  currentUser } from "@clerk/nextjs";
 import { TGenerateImage } from "@/types/GenerateImageType";
-import { redirect } from "next/navigation";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
