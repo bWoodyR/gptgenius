@@ -60,8 +60,9 @@ const Chat = () => {
         })}
         {isPending ? <span className="loading"></span> : null}
       </div>
+   
 
-      <form onSubmit={(e) => handleSubmit(e)} className="max-w-4xl pt-12">
+      <form onSubmit={(e) => handleSubmit(e)} className="w-2/3 pt-12 justify-self-center">
         <div className="join w-full">
           <input type="text" placeholder="Message" className="input input-bordered join-item w-full" value={text} required onChange={(e) => setText(e.target.value)} />
           <button type="submit" className="btn btn-primary join-item" disabled={isPending}>
