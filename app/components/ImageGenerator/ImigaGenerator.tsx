@@ -6,7 +6,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { useAuth } from "@clerk/nextjs";
-import ImigeGeneratorOptions from "./ImigeGeneratorOptions";
+import ImigeGeneratorOptions from "./ImageGeneratorOptions";
 
 const ImageGenerator = () => {
   const [text, setText] = useState("");
