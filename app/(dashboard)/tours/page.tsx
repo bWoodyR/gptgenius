@@ -1,4 +1,4 @@
-import TouorsPage from "@/app/components/Tours/TouorsPage";
+import TouorsPage from "@/app/components/Tours/ToursPage";
 import { getAllTours } from "@/utils/action";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
