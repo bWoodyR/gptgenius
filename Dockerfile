@@ -18,10 +18,10 @@ COPY . .
 RUN npm run build  
 
 # Expose the port the app will run on  
-EXPOSE 4000  
+EXPOSE 4002  
 
 # setting up ENV and ENV (only available in build process) variables
-ENV PORT 4000
+ENV PORT 4002
 ENV NODE_ENV production
 
 # Start the app  
